@@ -3,8 +3,6 @@ import java.io.PrintWriter;
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadMXBean;
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.lang.Math.*;
 
 public class fibFormulaBig {
 
