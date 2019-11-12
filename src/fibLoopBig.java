@@ -3,6 +3,7 @@ import java.io.PrintWriter;
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadMXBean;
 import java.math.BigInteger;
+import java.lang.Math;
 
 public class fibLoopBig {
     static ThreadMXBean bean = ManagementFactory.getThreadMXBean();
@@ -91,6 +92,20 @@ public class fibLoopBig {
 
         }
         return fibonacci; // Fibonacci number
+
+    }
+    //•	this function uses the fibonacci formula to calculate fib(x) directly -- use double precision (8 byte) floating point type
+    //•	find the higheset fib(x) you can calculate exactly with this function (discuss in writeup)
+    //•	note: floating point numbers have fewer significant digits than the same size integer type, so while you can calculate larger numbers, the largest number you can calculate accurately will be smaller that with integer of same size
+    public static Double fibFormula(double X){
+        double fibonacci =  (((1+java.lang.Math.sqrt(5))/2) * X - ((1+java.lang.Math.sqrt(5))/2) * -X) / java.lang.Math.sqrt(5);
+
+        return fibonacci;
+    }
+
+    //•	calculate exact fibonacci numbers using java BigDecimal
+    //•	find the largest fibonacci number you can handle (either time or space or both)
+    public static BigInteger fibFormulaBig{
 
     }
 
