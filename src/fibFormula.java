@@ -2,9 +2,8 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadMXBean;
-import java.math.BigInteger;
 
-public class fibMatrixBig {
+public class fibFormula {
 
     static ThreadMXBean bean = ManagementFactory.getThreadMXBean();
 
@@ -12,7 +11,7 @@ public class fibMatrixBig {
     static int numberOfTrials = 50;
     static int MININPUTSIZE = 0;
     static int MAXINPUTSIZE = 128;
-    static String ResultsFolderPath = "/home/caitlin/Documents/Lab5/"; // pathname to results folder
+    static String ResultsFolderPath = "/home/caitlin/Documents/Lab6/"; // pathname to results folder
     static FileWriter resultsFile;
     static PrintWriter resultsWriter;
 
@@ -21,11 +20,11 @@ public class fibMatrixBig {
         //direct the verification test results to file
         // run the whole experiment at least twice, and expect to throw away the data from the earlier runs, before java has fully optimized
         System.out.println("Running first full experiment...");
-        runFullExperiment("fibMatrixBig-Exp1-ThrowAway.txt");
+        runFullExperiment("fibFormula-Exp1-ThrowAway.txt");
         System.out.println("Running second full experiment...");
-        runFullExperiment("fibMatrixBig-Exp2.txt");
+        runFullExperiment("fibFormula-Exp2.txt");
         System.out.println("Running third full experiment...");
-        runFullExperiment("fibMatrixBig-Exp3.txt");
+        runFullExperiment("fibFormula-Exp3.txt");
 
     }
 
@@ -60,8 +59,7 @@ public class fibMatrixBig {
             TrialStopwatch.start(); // *** uncomment this line if timing trials individually
             // run the trials
             for (long trial = 0; trial < numberOfTrials; trial++) {
-                FibMatrix(inputSize);
-
+                fibFormula(inputSize);
             }
 
             batchElapsedTime = BatchStopwatch.elapsedTime(); // *** comment this line if timing trials individually
@@ -74,42 +72,12 @@ public class fibMatrixBig {
         }
     }
 
-    public static BigInteger FibMatrix(long X){
-        BigInteger F[][] = new BigInteger[][]{{BigInteger.valueOf(1),BigInteger.valueOf(1)},{BigInteger.valueOf(1),BigInteger.valueOf(0)}};
-        if (X== 0)
-            return BigInteger.valueOf(0);
-        MatrixPower(F, X-1);
-
-        return F[0][0];
-        //take a single 8-byte unsigned integer and return a single 8-byte result
-
-        //reminder: towards end of video, y would be the variable we want the fibonacci of  (we want fib(y) there)
-
-        //Calculating MX should take O(log2(X)) matrix multiplications instead of the naïve O(X).
-        //Note that because the size (number of bits) of N ~ log2(X), calculating MX should take O(N) multiplications.
-
+    //•	this function uses the fibonacci formula to calculate fib(x) directly -- use double precision (8 byte) floating point type
+    //•	find the higheset fib(x) you can calculate exactly with this function (discuss in writeup)
+    //•	note: floating point numbers have fewer significant digits than the same size integer type, so while you can calculate larger numbers, the largest number you can calculate accurately will be smaller that with integer of same size
+    public static Double fibFormula(double X){
+        double fibonacci =  (Math.pow((1 + Math.sqrt(5) / 2) , X) - Math.pow((1 + Math.sqrt(5) / 2), -X)) / Math.sqrt(5);
+        return fibonacci;
     }
 
-    public static void MatrixPower(BigInteger[][] F, long X){
-        //Write a helper function called by MatrixPower that efficiently calculates powers of a matrix
-        int i;
-        BigInteger M[][] = new BigInteger[][]{{BigInteger.valueOf(1), BigInteger.valueOf(1)}, {BigInteger.valueOf(1), BigInteger.valueOf(0)}};
-
-        // n - 1 times multiply the matrix to {{1,0},{0,1}}
-        for (i = 2; i <= X; i++)
-            MatrixMultiplication(F, M);
-    }
-
-    public static void MatrixMultiplication(BigInteger F[][], BigInteger M[][]){
-        //which, in trun needs a helper function to do simple matrix multiplication
-        BigInteger x =  (F[0][0].multiply(M[0][0])).add(F[0][1].multiply(M[1][0]));
-        BigInteger y =  (F[0][0].multiply(M[0][1])).add(F[0][1].multiply(M[1][1]));
-        BigInteger z =  (F[1][0].multiply(M[0][0])).add(F[1][1].multiply(M[1][0]));
-        BigInteger w =  (F[1][0].multiply(M[0][1])).add(F[1][1].multiply(M[1][1]));
-
-        F[0][0] = x;
-        F[0][1] = y;
-        F[1][0] = z;
-        F[1][1] = w;
-    }
 }
