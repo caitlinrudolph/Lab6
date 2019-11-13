@@ -12,7 +12,7 @@ public class fibMatrixBig {
     static int numberOfTrials = 50;
     static int MININPUTSIZE = 0;
     static int MAXINPUTSIZE = 128;
-    static String ResultsFolderPath = "/home/caitlin/Documents/Lab5/"; // pathname to results folder
+    static String ResultsFolderPath = "/home/caitlin/Documents/Lab6/"; // pathname to results folder
     static FileWriter resultsFile;
     static PrintWriter resultsWriter;
 

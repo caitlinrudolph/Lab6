@@ -76,7 +76,7 @@ public class fibFormula {
     //•	find the higheset fib(x) you can calculate exactly with this function (discuss in writeup)
     //•	note: floating point numbers have fewer significant digits than the same size integer type, so while you can calculate larger numbers, the largest number you can calculate accurately will be smaller that with integer of same size
     public static Double fibFormula(double X){
-        double fibonacci =  (Math.pow((1 + Math.sqrt(5) / 2) , X) - Math.pow((1 + Math.sqrt(5) / 2), -X)) / Math.sqrt(5);
+        double fibonacci = (Math.pow((1 + Math.sqrt(5)) / 2, X) - Math.pow((1 + Math.sqrt(5)) / 2, -X)) / (Math.sqrt(5));
         return fibonacci;
     }
 

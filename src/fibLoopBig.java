@@ -22,11 +22,11 @@ public class fibLoopBig {
         //direct the verification test results to file
         // run the whole experiment at least twice, and expect to throw away the data from the earlier runs, before java has fully optimized
         System.out.println("Running first full experiment...");
-        runFullExperiment("fibLoopBig-Exp1-ThrowAway.txt");
+        runFullExperiment("fibMatrixBig-Exp1-ThrowAway.txt");
         System.out.println("Running second full experiment...");
-        runFullExperiment("fibLoopBig-Exp2.txt");
+        runFullExperiment("fibMatrixBig-Exp2.txt");
         System.out.println("Running third full experiment...");
-        runFullExperiment("fibLoopBig-Exp3.txt");
+        runFullExperiment("fibMatrixBig-Exp3.txt");
 
     }
 

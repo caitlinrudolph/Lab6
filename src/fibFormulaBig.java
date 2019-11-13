@@ -77,8 +77,9 @@ public class fibFormulaBig {
     //•	calculate exact fibonacci numbers using java BigDecimal
     //•	find the largest fibonacci number you can handle (either time or space or both)
     public static BigDecimal fibFormulaBig(BigDecimal X){
-        BigDecimal fibonacci =  (Math.pow((1 + Math.sqrt(5) / 2) , X) - Math.pow((1 + Math.sqrt(5) / 2), -X)) / Math.sqrt(5);
-
-        return fibonacci;
+       BigDecimal fibonacci = null;
+               //= (Math.pow((1 + Math.sqrt(5)) / 2, X) - Math.pow((1 + Math.sqrt(5)) / 2, -X)) / (Math.sqrt(5));
+       return fibonacci;
+        
     }
 }
