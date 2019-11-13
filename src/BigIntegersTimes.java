@@ -3,11 +3,12 @@ import java.io.PrintWriter;
 
 public class BigIntegersTimes {
     static int MININPUT = 0;
-    static int MAXINPUT = 999999999;
-    static long numberOfTrials = 500;
+    static int MAXINPUT = 999;
+    static long numberOfTrials = 200;
     static String ResultsFolderPath = "/home/caitlin/Documents/Lab6/"; // pathname to results folder
     static FileWriter resultsFile;
     static PrintWriter resultsWriter;
+
 
     public static void main(String[] args) {
 

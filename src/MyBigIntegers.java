@@ -34,28 +34,23 @@ public class MyBigIntegers {
 
         // Calculate length of both String
         int n1 = Values.length(), n2 = X.toString().length();
-        int diff = n2 - n1;
+        String storage = "";
 
-        // Initially take carry zero
+        int valueLength = Values.length();
+        int xLength = X.toString().length();
+        int difference = xLength - valueLength;
         int carry = 0;
 
-        // Traverse from end of both Strings
-        for (int i = n1 - 1; i>=0; i--)
-        {
-            // Do school mathematics, compute sum of
-            // current digits and carry
-            int sum = ((int)(Values.charAt(i)-'0') +
-                    (int)(X.toString().charAt(i+diff)-'0') + carry);
-            str += (char)(sum % 10 + '0');
-            carry = sum / 10;
+        for (int i = (valueLength - 1); i >= 0; i--) {
+            int sum = ((int) (Values.charAt(i) - '0') + (int) (X.toString().charAt(i + difference) - '0') + carry);
+            storage += (char) (sum % 10 + '0');
+            carry = (sum / 10);
         }
 
-        // Add remaining digits of X[]
-        for (int i = n2 - n1 - 1; i >= 0; i--)
-        {
-            int sum = ((int)(X.toString().charAt(i) - '0') + carry);
-            str += (char)(sum % 10 + '0');
-            carry = sum / 10;
+        for (int i = (xLength - valueLength - 1); i >= 0; i--) {
+            int sum = ((int) (X.toString().charAt(i) - '0') + carry);
+            storage += (char) (sum % 10 + '0');
+            carry = (sum / 10);
         }
 
         // Add remaining carry
@@ -157,44 +152,33 @@ public class MyBigIntegers {
         // Take an empty string for storing result
         String str = "";
 
-        // Calculate lengths of both strings
-        int n1 = Values.length(), n2 = X.toString().length();
-        int diff = n1 - n2;
+        int valueLength = Values.length();
+        int xLength = X.toString().length();
 
-        // Initially take carry zero
-        int carry = 0;
-
-        // Traverse from end of both strings
-        for (int i = n2 - 1; i >= 0; i--)
-        {
-            // Do school mathematics, compute difference of
-            // current digits and carry
-            int sub = (((int)Values.charAt(i + diff) - (int)'0') -
-                    ((int)X.toString().charAt(i) - (int)'0') - carry);
-            if (sub < 0)
-            {
-                sub = sub+10;
-                carry = 1;
-            }
-            else
-                carry = 0;
-
-            str += String.valueOf(sub);
+        if (valueLength == 0 || xLength == 0) {
+            return new MyBigIntegers();
         }
 
-        // subtract remaining digits of values[]
-        for (int i = n1 - n2 - 1; i >= 0; i--)
-        {
-            if (Values.charAt(i) == '0' && carry > 0)
-            {
-                str += "9";
-                continue;
-            }
-            int sub = (((int)Values.charAt(i) - (int)'0') - carry);
-            if (i > 0 || sub > 0) // remove preceding 0's
-                str += String.valueOf(sub);
-            carry = 0;
+        int result[] = new int[valueLength + xLength];
 
+        int iValueLength = 0;
+        int iXLength = 0;
+
+        for (int i = (valueLength - 1); i >= 0; i--) {
+            int carry = 0;
+            int n1 = Values.charAt(i) - '0';
+
+            iXLength = 0;
+
+            for (int j = xLength - 1; j >= 0; j--) {
+                int n2 = X.toString().charAt(j) - '0';
+                int sum = (n1 * n2) + result[iValueLength + iXLength] + carry;
+
+                carry = (sum / 10);
+                result[iValueLength + iXLength] = sum % 10;
+
+                iXLength++;
+            }
         }
 
         // reverse resultant string
