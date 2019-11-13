@@ -1,74 +1,5 @@
-import java.io.FileWriter;
-import java.io.PrintWriter;
-
 public class MyBigIntegers {
     public static String Values;
-    static int numberOfTrials = 50;
-    static int MININPUTSIZE = 0;
-    static int MAXINPUTSIZE = 128;
-    static String ResultsFolderPath = "/home/caitlin/Documents/Lab6/"; // pathname to results folder
-    static FileWriter resultsFile;
-    static PrintWriter resultsWriter;
-
-    public static void main(String[] args) {
-
-        //direct the verification test results to file
-        // run the whole experiment at least twice, and expect to throw away the data from the earlier runs, before java has fully optimized
-        System.out.println("Running first full experiment...");
-        runFullExperiment("fibFormulaBig-Exp1-ThrowAway.txt");
-        System.out.println("Running second full experiment...");
-        runFullExperiment("fibFormulaBig-Exp2.txt");
-        System.out.println("Running third full experiment...");
-        runFullExperiment("fibFormulaBig-Exp3.txt");
-
-    }
-
-    static void runFullExperiment(String resultsFileName) {
-        try {
-            resultsFile = new FileWriter(ResultsFolderPath + resultsFileName);
-            resultsWriter = new PrintWriter(resultsFile);
-        } catch (Exception e) {
-            System.out.println("*****!!!!!  Had a problem opening the results file " + ResultsFolderPath + resultsFileName);
-            return; // not very foolproof... but we do expect to be able to create/open the file...
-        }
-
-        ThreadCpuStopWatch BatchStopwatch = new ThreadCpuStopWatch(); // for timing an entire set of trials
-        ThreadCpuStopWatch TrialStopwatch = new ThreadCpuStopWatch(); // for timing an individual trial
-
-        resultsWriter.println("#X(value)    N(size)    T(time)"); // # marks a comment in gnuplot data
-        resultsWriter.flush();
-        /* for each size of input we want to test: in this case starting small and doubling the size each time */
-        for (int inputSize = MININPUTSIZE; inputSize <= MAXINPUTSIZE; inputSize++) {
-            // progress message...
-            System.out.println("Running test for input size " + inputSize + " ... ");
-
-            /* repeat for desired number of trials (for a specific size of input)... */
-            long batchElapsedTime = 0;
-            // generate a list of randomly spaced integers in ascending sorted order to use as test input
-            // In this case we're generating one list to use for the entire set of trials (of a given input size)
-            // but we will randomly generate the search key for each trial
-
-            /* force garbage collection before each batch of trials run so it is not included in the time */
-            System.gc();
-
-            TrialStopwatch.start(); // *** uncomment this line if timing trials individually
-            // run the trials
-            for (long trial = 0; trial < numberOfTrials; trial++) {
-              //  fibFormulaBig(inputSize);
-
-            }
-
-            batchElapsedTime = BatchStopwatch.elapsedTime(); // *** comment this line if timing trials individually
-            double averageTimePerTrialInBatch = (double) batchElapsedTime / (double) numberOfTrials; // calculate the average time per trial in this batch
-
-            /* print data for this size of input */
-            resultsWriter.printf("%12d  %12d  %15.2f \n", inputSize, Long.toBinaryString(inputSize).length(), averageTimePerTrialInBatch); // might as well make the columns look nice
-            resultsWriter.flush();
-            System.out.println(" ....done.");
-        }
-    }
-
-
     //CONSTRUCTORS
 
     //NO ARGUMENT INITIALIZE TO ZERO
@@ -82,7 +13,6 @@ public class MyBigIntegers {
         Values = decimal;
     }
 
-
     //return the string value property
     public String ToString(String decimal) {
         return decimal;
@@ -92,7 +22,7 @@ public class MyBigIntegers {
         //returns a new biginteger with value of this.value + x.value
         //C = A.plus(B);
         // Before proceeding further, make sure length
-        // of str2 is larger.
+        // of X is larger.
         if (Values.length() > X.toString().length()){
             String t = Values;
             Values = X.toString();
@@ -120,7 +50,7 @@ public class MyBigIntegers {
             carry = sum / 10;
         }
 
-        // Add remaining digits of str2[]
+        // Add remaining digits of X[]
         for (int i = n2 - n1 - 1; i >= 0; i--)
         {
             int sum = ((int)(X.toString().charAt(i) - '0') + carry);
@@ -164,7 +94,7 @@ public class MyBigIntegers {
             int n1 = Values.charAt(i) - '0';
 
             // To shift position to left after every
-            // multipliccharAtion of a digit in num2
+            // multiplication of a digit in num2
             i_n2 = 0;
 
             // Go from right to left in num2
@@ -227,7 +157,7 @@ public class MyBigIntegers {
         // Take an empty string for storing result
         String str = "";
 
-        // Calculate lengths of both string
+        // Calculate lengths of both strings
         int n1 = Values.length(), n2 = X.toString().length();
         int diff = n1 - n2;
 
@@ -252,7 +182,7 @@ public class MyBigIntegers {
             str += String.valueOf(sub);
         }
 
-        // subtract remaining digits of str1[]
+        // subtract remaining digits of values[]
         for (int i = n1 - n2 - 1; i >= 0; i--)
         {
             if (Values.charAt(i) == '0' && carry > 0)
@@ -275,7 +205,7 @@ public class MyBigIntegers {
 // else false.
     static boolean isSmaller(String str1, String str2)
     {
-        // Calculate lengths of both string
+        // Calculate lengths of both strings
         int n1 = str1.length(), n2 = str2.length();
 
         if (n1 < n2)
